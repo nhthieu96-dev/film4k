@@ -1,0 +1,11 @@
+name = "film4k-stremio-addon"
+type = "javascript"
+account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
+workers_dev = true               # dùng <name>.<your-subdomain>.workers.dev
+compatibility_date = "2024-08-01"
+
+[build]
+command = "npm run build"
+
+[vars]
+# (nếu cần) API_KEY = "xxx"
