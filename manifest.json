@@ -1,0 +1,21 @@
+{
+  "id": "org.example.film4k",
+  "version": "1.0.0",
+  "name": "Film4K – Stremio Addon",
+  "description": "Addon lấy phim từ film4k.net",
+  "resources": [
+    "catalog",
+    "meta",
+    "stream"
+  ],
+  "types": ["movie", "series"],
+  "catalogs": [
+    {
+      "type": "movie",
+      "id": "latest",
+      "name": "Film4K – Mới nhất",
+      "extra": [{ "name": "search", "isRequired": false }]
+    }
+  ],
+  "idPrefixes": ["film4k"]
+}
