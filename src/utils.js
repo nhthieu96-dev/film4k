@@ -154,6 +154,72 @@ export function parseEpisodes(html) {
     if (match) {
       episodes.push({
         episode: parseInt(match[1]),
+        // ... continuing from where I left off
+if (match) {
+  episodes.push({
+    episode: parseInt(match[1]),
+    title: text || `Tập ${match[1]}`,
+    url: href
+  });
+}
+});
+
+// Sort episodes by number
+episodes.sort((a, b) => a.episode - b.episode);
+return episodes;
+}
+
+/**
+ * Fetch HTML with proper headers to avoid blocking
+ */
+export async function fetchPage(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
+        'Referer': BASE_URL,
+      }
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.text();
+  } catch (error) {
+    console.error(`Failed to fetch ${url}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Format Stremio response
+ */
+export function formatStremioResponse(data) {
+  return new Response(JSON.stringify(data), {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    }
+  });
+}
+
+/**
+ * Handle CORS preflight
+ */
+export function handleCors(request) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Max-Age': '86400'
+      }
+    });
+  }
+  return null;
+}
         title: text || `Tập ${match[1]}`,
         url: href
       });
