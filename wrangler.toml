@@ -1,11 +1,12 @@
 name = "film4k-stremio-addon"
-type = "javascript"
-account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
-workers_dev = true               # dùng <name>.<your-subdomain>.workers.dev
-compatibility_date = "2024-08-01"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
 
-[build]
-command = "npm run build"
-
+# Allow fetching from film4k.net
 [vars]
-# (nếu cần) API_KEY = "xxx"
+BASE_URL = "https://film4k.net"
+ADDON_ID = "film4k"
+ADDON_VERSION = "1.0.0"
+
+# Optional: set a custom domain
+# workers_dev = true
